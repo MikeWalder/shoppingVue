@@ -1,24 +1,12 @@
-# 
+### Vue project
 
-## Project setup
-```
-npm install
-```
+This project shows how to add Vue to a HTML page.
+ 
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+#### Start Sass 
+* `npm run sass`
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+##### Left to do :
+* Wish List
+* Shopping cart 
