@@ -19,7 +19,7 @@
       <div class="nav-container">
         <div id="logo">
           <router-link to='/'>
-            <img src="assets/img/wish-logo-800.png" style="" alt="logo" />
+            <img src="assets/img/wish-logo-800.png" alt="logo" />
           </router-link>
         </div>
 
@@ -32,7 +32,7 @@
           <li>
             <router-link to='/wishlist'>
               <i class="fas fa-heart"></i>
-              <span id="nav-notif"></span>
+              <span id="nav-not"></span>
             </router-link>
           </li>
           <li>
@@ -46,12 +46,116 @@
     <router-view></router-view>
   </div>
 
-    <script type="text/x-template" id="home"></script>
+  <script type="text/x-template" id="home">
+    <div class="home-container">
+      <h1>Accueil</h1>
+
+      <!-- Search display -->
+      <input v-model="searchKey" type="search" id="search" placeholder="Rechercher..." autocomplete="off" />
+      <span v-if="searchKey && filtrationList.length >= 1">
+        {{filtrationList.length}} résultat</span>
+        <span v-if="filtrationList > 1">s</span>
+      </span>
+      <div v-if="filtrationList.length == []" class="no-result">
+        <h3>Aucun résultat trouvé</h3>
+      </div>
+
+      <!-- Cards display -->
+      <div class="card-cart-container">
+        <div class="card-container">
+          <div v-for="item in filtrationList" class="card">
+
+            <div class="img-container">
+              <img :src="item.img">
+            </div>
+
+            <div class="card-text">
+              <h3>{{item.description}}</h3>
+              <span>{{item.price}}€</span>
+            </div>
+
+            <div class="card-icons">
+              <div class="like-container">
+                <input
+                  type="checkbox"
+                  name="checkbox"
+                  :id="item.id"
+                  :value="item.id"
+                  v-model="liked"
+                  @click="setLikeCookie()"
+                >
+                <label :for="item.id">
+                  <i class="fas fa-heart"></i>
+                </label>
+              </div>
+
+              <div class="add-to-cart">
+                <button @click="addToCart(item)">
+                  <i class="fas fa-shopping-cart"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cart displaying -->
+        <transition name="cart-anim">
+          <div v-if="cart.length > 0" class="shopping-cart" id="shopping-cart">
+            
+            <h2>Panier</h2>
+
+            <div class="item-group">
+              <div v-for="prod, id in cart" class="item" :key="prod.id">
+                <div class="img-container">
+                  <img :src="prod.img" :alt="prod.description">
+                </div>
+
+                <div class="item-description">
+                  <h4>{{prod.description}}</h4>
+                  <p>{{prod.price}}€</p>
+                </div>
+
+                <div class="item-quantity">
+                  <h6>quantité : {{prod.quantity}}</h6>
+
+                  <div class="cart-icons">
+                    <button @click="addOneProduct(prod)">
+                      <i class="fas fa-plus"></i>
+                    </button>
+                    <button @click="removeOneProduct(prod, id)">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <button @click="deleteProduct(id)">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grand-total">
+              <div class="total">
+                <h2>Total</h2>
+                <h2>{{totalAmountCart}}€</h2>
+              </div>
+              <h6>Total articles : {{itemsTotalAmountCart}}</h6>
+            </div>
+          </div>
+        </transition>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-template" id="userSettings">
+    <h1>Paramètres utilisateur</h1>
+  </script>
 
     <!-- Importer Vue -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <!-- Importer Vue Router CDN -->
     <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <!-- Vue cookies CDN -->
+    <script src="https://unpkg.com/vue-cookies@1.5.12/vue-cookies.js"></script>
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/script.js"></script>
   </body>

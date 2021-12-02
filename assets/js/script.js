@@ -17,7 +17,7 @@ const products = [
 // set little red dot above icons nav
 window.addEventListener("load", () => {
   let checkbox = document.getElementsByTagName('input'); 
-  let notif = document.getElementById('nav-notif');
+  let notif = document.getElementById('nav-not');
 
   // check if at least one of the checkboxes on the DOM is checked
   const checkboxCheck = () => { 

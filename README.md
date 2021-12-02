@@ -8,5 +8,6 @@ This project shows how to add Vue to a HTML page.
 
 
 ##### Left to do :
+* User settings
 * Wish List
 * Shopping cart 
